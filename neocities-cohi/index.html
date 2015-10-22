@@ -166,7 +166,7 @@
           
         for (var i = 0; i < sampleData.length; i++) {
           var locationData = sampleData[i];
-          console.log("locationData is " + JSON.stringify(locationData));
+          console.log("locationData is " + locationData["value"]);
 
           var point = {};
           point.location = new google.maps.LatLng(locationData["lat"],locationData["long"]);
@@ -175,12 +175,39 @@
           console.log("pointData is " + JSON.stringify(point));
 
           points.push(point);
+
+          var contentString = '<div id="content">'+
+            '<h2 id="markerHeader" style="font-family: \'Arial\', serif;">Station</h1>'+
+            '<div id="markerContent">'+
+            '<p>' + locationData["value"] + ' &#181;g/m<sup>3</sup></p>'+
+            '</div>'+
+            '</div>';
+
+          var infowindow =  new google.maps.InfoWindow();
+          var marker = new google.maps.Marker({
+            position: point.location,
+            map: map,
+            title: ''
+          });
+
+          bindInfoWindow(marker,map,infowindow,contentString);
         }
         
         heatMap.setData(points);
       });
       };
 
+      function bindInfoWindow(marker, map, infowindow, html) { 
+          google.maps.event.addListener(marker, 'mouseover', function() {
+                  infowindow.setContent(html); 
+                  infowindow.open(map, marker); 
+
+          });
+          google.maps.event.addListener(marker, 'mouseout', function() {
+              infowindow.close();
+
+          }); 
+      } 
       </script>
       <script async defer
       src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBDwEEKk1ELCtXoHJBaERixXf8e_PuoYOw&callback=initMap&libraries=visualization,geometry">
@@ -226,14 +253,14 @@
                     <br>boink!
                     <br><a href="http://fuzzyview.neocities.org/">chuanz</a>
                   </div>
-                  <br><div id="help" align="center">Wanna help out? Drop an email to <b>asphodeli &#x1F4E7;yahoo.com.sg</b></div>
+                  <br><div id="help" align="center">Wanna help out? Drop an email to <br><b>asphodeli &#x1F4E7;yahoo.com.sg</b></div>
                 </div>
                 <p></p>
                 <div id='disclaimer'>
                 <h2 align="center">Disclaimer</h3>
                   <div align="center">
                     THIS WEBSITE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS WEBSITE.
-                    <p>The site administrator can be reached at <b>asphodeli &#x1F4E7;yahoo.com.sg</b></p>
+                    <p>The site administrator can be reached at <br><b>asphodeli &#x1F4E7;yahoo.com.sg</b></p>
                     </div>
                   </div>
                 </div>
