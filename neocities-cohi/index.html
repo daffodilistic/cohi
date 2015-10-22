@@ -162,45 +162,47 @@
         var points = new Array();
 
         $.getJSON("https://script.google.com/macros/s/AKfycbzCOfcSRPOHmHltFv_jPKw0tq3q8TigA7FbklPvrxm9i-YlMyxX/exec", function (data) {
-          var sampleData = data;
+            var sampleData = data.readings;
+            
+            console.log("sampleData.length is " + sampleData.length);
+
+            for (var i = 0; i < sampleData.length; i++) {
+              var locationData = sampleData[i];
+              console.log("locationData is " + locationData["value"]);
+
+              var point = {};
+              point.location = new google.maps.LatLng(locationData["lat"],locationData["long"]);
+              point.weight = locationData["value"];
+
+              console.log("pointData is " + JSON.stringify(point));
+
+              points.push(point);
+
+              var contentString = '<div id="content">'+
+                '<h2 id="markerHeader" style="font-family: \'Arial\', serif;">' + locationData["location"] + '</h2>'+
+                '<div id="markerContent">'+
+                '<p>' + locationData["value"] + ' &#181;g/m<sup>3</sup></p>'+
+                '</div>'+
+                '</div>';
+
+              var infowindow =  new google.maps.InfoWindow();
+              var marker = new google.maps.Marker({
+                position: point.location,
+                map: map,
+                title: ''
+              });
+
+              bindInfoWindow(marker,map,infowindow,contentString);
+            }
           
-        for (var i = 0; i < sampleData.length; i++) {
-          var locationData = sampleData[i];
-          console.log("locationData is " + locationData["value"]);
-
-          var point = {};
-          point.location = new google.maps.LatLng(locationData["lat"],locationData["long"]);
-          point.weight = locationData["value"];
-
-          console.log("pointData is " + JSON.stringify(point));
-
-          points.push(point);
-
-          var contentString = '<div id="content">'+
-            '<h2 id="markerHeader" style="font-family: \'Arial\', serif;">Station</h1>'+
-            '<div id="markerContent">'+
-            '<p>' + locationData["value"] + ' &#181;g/m<sup>3</sup></p>'+
-            '</div>'+
-            '</div>';
-
-          var infowindow =  new google.maps.InfoWindow();
-          var marker = new google.maps.Marker({
-            position: point.location,
-            map: map,
-            title: ''
-          });
-
-          bindInfoWindow(marker,map,infowindow,contentString);
-        }
-        
-        heatMap.setData(points);
-      });
+          heatMap.setData(points);
+        });
       };
 
       function bindInfoWindow(marker, map, infowindow, html) { 
           google.maps.event.addListener(marker, 'mouseover', function() {
-                  infowindow.setContent(html); 
-                  infowindow.open(map, marker); 
+              infowindow.setContent(html); 
+              infowindow.open(map, marker); 
 
           });
           google.maps.event.addListener(marker, 'mouseout', function() {
