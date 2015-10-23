@@ -16,7 +16,7 @@
         h1, h2, h3 { margin: auto; font-family: 'Shadows Into Light', cursive; }
 		#holder {
 		  min-width: 720px;
-          min-height: 405px; 
+          min-height: 680px; 
 		  width: 60%;
 		  
 		  margin: auto;
@@ -165,13 +165,20 @@
       }
 
       var map, heatMap;
+	  var myPlace, bounds;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 1.3535514, lng: 103.8203601},
-          zoom: 11,
+          zoom: 12,
           streetViewControl: false
         });
-
+		
+		myPlace = new google.maps.LatLng(1.3535514, 103.8203601);
+		bounds = new google.maps.LatLngBounds();
+		bounds.extend(myPlace);
+		
+		//map.fitBounds(bounds);
+		
         heatMap = new google.maps.visualization.HeatmapLayer({
           maxIntensity: 300,
           radius: getNewRadius()
@@ -219,10 +226,13 @@
                 title: ''
               });
 
+			  bounds.extend(point.location);
+			  
               bindInfoWindow(marker,map,infowindow,contentString);
             }
           
           heatMap.setData(points);
+		  map.fitBounds(bounds);
 		  
 		  $(".overlay").hide();
         });
