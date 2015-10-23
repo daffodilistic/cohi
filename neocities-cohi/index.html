@@ -194,50 +194,69 @@
       }
 
       function getPoints() {
-        var points = new Array();
+        //+ "?prefix=processPoints" + "&callback=?"
+        var dataProvider = "https://script.google.com/macros/s/AKfycbzCOfcSRPOHmHltFv_jPKw0tq3q8TigA7FbklPvrxm9i-YlMyxX/exec";
 
-        $.getJSON("https://script.google.com/macros/s/AKfycbzCOfcSRPOHmHltFv_jPKw0tq3q8TigA7FbklPvrxm9i-YlMyxX/exec", function (data) {
-            var sampleData = data.readings;
-            
-            console.log("sampleData.length is " + sampleData.length);
-
-            for (var i = 0; i < sampleData.length; i++) {
-              var locationData = sampleData[i];
-              console.log("locationData is " + locationData["value"]);
-
-              var point = {};
-              point.location = new google.maps.LatLng(locationData["lat"],locationData["long"]);
-              point.weight = locationData["value"];
-
-              console.log("pointData is " + JSON.stringify(point));
-
-              points.push(point);
-
-              var contentString = '<div id="content">'+
-                '<h2 id="markerHeader" style="font-family: \'Arial\', serif;">' + locationData["location"] + '</h2>'+
-                '<div id="markerContent">'+
-                '<p>' + locationData["value"] + ' &#181;g/m<sup>3</sup></p>'+
-                '</div>'+
-                '</div>';
-
-              var infowindow =  new google.maps.InfoWindow();
-              var marker = new google.maps.Marker({
-                position: point.location,
-                map: map,
-                title: ''
-              });
-
-			  bounds.extend(point.location);
-			  
-              bindInfoWindow(marker,map,infowindow,contentString);
+        var ua = navigator.userAgent.toLowerCase(); 
+          if (ua.indexOf('safari') != -1) { 
+            if (ua.indexOf('chrome') > -1) {
+              // Chrome
+              // Don't need to do anything, yay!
+            } else {
+              // Fucking Safari
+              dataProvider = "https://crossorigin.me/" + dataProvider;
             }
+          }
           
-          heatMap.setData(points);
-		  map.fitBounds(bounds);
-		  
-		  $(".overlay").hide();
-        });
-      };
+          $.ajax({
+            url: dataProvider,
+            method: "GET",
+            success: processPoints
+          });
+      }
+      
+      function processPoints(data) {
+        var points = new Array();
+        var sampleData = data.readings;
+      
+        console.log("sampleData.length is " + sampleData.length);
+
+        for (var i = 0; i < sampleData.length; i++) {
+          var locationData = sampleData[i];
+          console.log("locationData is " + locationData["value"]);
+
+          var point = {};
+          point.location = new google.maps.LatLng(locationData["lat"],locationData["long"]);
+          point.weight = locationData["value"];
+
+          console.log("pointData is " + JSON.stringify(point));
+
+          points.push(point);
+
+          var contentString = '<div id="content">'+
+            '<h2 id="markerHeader" style="font-family: \'Arial\', serif;">' + locationData["location"] + '</h2>'+
+            '<div id="markerContent">'+
+            '<p>' + locationData["value"] + ' &#181;g/m<sup>3</sup></p>'+
+            '</div>'+
+            '</div>';
+
+          var infowindow =  new google.maps.InfoWindow();
+          var marker = new google.maps.Marker({
+            position: point.location,
+            map: map,
+            title: ''
+          });
+
+	        bounds.extend(point.location);
+	  
+          bindInfoWindow(marker,map,infowindow,contentString);
+        }
+    
+        heatMap.setData(points);
+  		  map.fitBounds(bounds);
+  		  
+  		  $(".overlay").hide();
+      }
 
       function bindInfoWindow(marker, map, infowindow, html) { 
           google.maps.event.addListener(marker, 'mouseover', function() {
