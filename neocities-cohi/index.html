@@ -240,16 +240,9 @@
             '</div>'+
             '</div>';
 
-          var infowindow =  new google.maps.InfoWindow();
-          var marker = new google.maps.Marker({
-            position: point.location,
-            map: map,
-            title: ''
-          });
-
-	        bounds.extend(point.location);
+	      bounds.extend(point.location);
 	  
-          bindInfoWindow(marker,map,infowindow,contentString);
+          bindInfoWindow(map, point, contentString);
         }
     
         heatMap.setData(points);
@@ -258,17 +251,41 @@
   		  $(".overlay").hide();
       }
 
-      function bindInfoWindow(marker, map, infowindow, html) { 
-          google.maps.event.addListener(marker, 'mouseover', function() {
-              infowindow.setContent(html); 
-              infowindow.open(map, marker); 
-
+      function bindInfoWindow(map, point, html) {
+		  var newInfoWindow =  new google.maps.InfoWindow();
+          
+		  var marker = new google.maps.Marker({
+            position: point.location,
+            map: map,
+            title: '',
+			infoWindow: newInfoWindow,
+			eventType: -1
           });
-          google.maps.event.addListener(marker, 'mouseout', function() {
-              infowindow.close();
 
-          }); 
-      } 
+		  newInfoWindow.setContent(html);
+		  
+		  marker.addListener('click', function() { openInfoWindow(marker, 0); });
+		  marker.addListener('mouseover', function() { openInfoWindow(marker, 1); });
+		  marker.addListener('mouseout', function() { closeInfoWindow(marker, false); });
+		  newInfoWindow.addListener('closeclick', function() { closeInfoWindow(marker, true); });
+      }
+	  
+	  function openInfoWindow(marker,state) {
+		// make sure click state is preserved
+		if (marker.eventType != 0)
+			marker.eventType = state;
+		
+		marker.infoWindow.open(marker.map, marker); 
+	  }
+	  
+	  function closeInfoWindow(marker, resetState) {
+		if (resetState == true) {
+			marker.eventType = -1;
+		} else {
+			if (marker.eventType == 1)
+				marker.infoWindow.close();			
+		}
+	  }
       </script>
       <script async defer
       src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBDwEEKk1ELCtXoHJBaERixXf8e_PuoYOw&callback=initMap&libraries=visualization,geometry">
