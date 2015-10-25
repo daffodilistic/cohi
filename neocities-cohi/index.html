@@ -1,144 +1,160 @@
-  <!DOCTYPE html>
-  <html>
-  <head>
-	<title>COHI - Community Online Haze Index</title>
-    <meta property="og:url"                content="http://cohi.neocities.org/" />
-    <meta property="og:title"              content="COHI - Community Online Haze Index" />
-    <meta property="og:type"               content="website" />
-    <meta property="og:description"        content="Read PM2.5 spot readings contributed by volunteers" />
-    <meta property="og:image"              content="http://cohi.neocities.org/fbPreview.png" />
-    <meta property="og:image:width"        content="1848" />
-    <meta property="og:image:height"       content="970" />
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>COHI - Community Online Haze Index</title>
+    <meta property="og:url" content="http://cohi.neocities.org/" />
+    <meta property="og:title" content="COHI - Community Online Haze Index" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Read PM2.5 spot readings contributed by volunteers" />
+    <meta property="og:image" content="http://cohi.neocities.org/fbPreview.png" />
+    <meta property="og:image:width" content="1848" />
+    <meta property="og:image:height" content="970" />
     <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:900' rel='stylesheet' type='text/css'>
     <style type="text/css">
-        html { 
-		  //max-width: 90%;
-		  //width: 95%;
-		  //margin: 0 0;
-		  //height: auto;
-		  padding: 0px !important;
-		  display: table;
-		  margin: 0 auto;
-		}
-		body {
-		  display: table-cell;
-		  vertical-align: middle;
-		}
-        h1, h2, h3 {
-		  margin: auto;
-		  font-family: 'Shadows Into Light', cursive;
-		}
-		#holder {
-		  //min-width: 720px;
-          min-height: 680px;
-		  width: 90%;
-		  
-		  padding-top:50%;
-		  //height:0;
-		  
-		  margin: auto;
-		  position: relative;
-		  
-		  border: 3px solid #8AC007;
-          padding: 10px;
+        html {
+            //max-width: 90%;
+            //width: 95%;
+            //margin: 0 0;
+            //height: auto;
+            padding: 0px !important;
+            display: table;
+            margin: 0 auto;
         }
-		#map {
-		  width  : 100%;
-		  height: 100%;
-		  overflow: hidden;
-		  position: absolute;
-		  top: 0px; 
-		  left: 0px; 
-			
-		  margin: auto;
-		  
-		  opacity: 1;
-		}
+        body {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        h1,
+        h2,
+        h3 {
+            margin: auto;
+            font-family: 'Shadows Into Light', cursive;
+        }
+        #holder {
+            //min-width: 720px;
+            min-height: 680px;
+            width: 90%;
+            padding-top: 50%;
+            //height:0;
+            margin: auto;
+            position: relative;
+            border: 3px solid #8AC007;
+            padding: 10px;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            margin: auto;
+            opacity: 1;
+        }
         #sharethis {
-          margin: auto;
-          width: 90%;
-		  min-height: 100px;
-          border: 3px solid #008B8B;
-          padding: 10px;
-          
+            margin: auto;
+            width: 90%;
+            min-height: 100px;
+            border: 3px solid #008B8B;
+            padding: 10px;
         }
         #todo {
-          font-family: 'Lora', serif;
-		  width: 90%;
-          margin: auto;
-          border: 3px solid #FFD700;
-          padding: 10px;
+            font-family: 'Lora', serif;
+            width: 90%;
+            margin: auto;
+            border: 3px solid #FFD700;
+            padding: 10px;
         }
         #contrib {
-          font-family: 'Merriweather', serif;
-          margin: auto;
-          width: 90%;
-          border: 3px solid #6495ED;
-          padding: 10px;
-          
+            font-family: 'Merriweather', serif;
+            margin: auto;
+            width: 90%;
+            border: 3px solid #6495ED;
+            padding: 10px;
         }
         #advert {
-          margin: auto;
-          width: 90%;
+            width: 320px;
+            height: 100px;
+            margin: 0 auto;
+        }
+        @media (min-width: 500px) {
+            #advert {
+                width: 468px;
+                height: 60px;
+            }
+        }
+        @media (min-width: 800px) {
+            #advert {
+                width: 728px;
+                height: 90px;
+            }
         }
         #disclaimer {
-          font-family: 'Lora', serif;
-          margin: auto;
-		  width: 90%;
-          border: 3px solid #FF6347;
-          padding: 10px;
-          
+            font-family: 'Lora', serif;
+            margin: auto;
+            width: 90%;
+            border: 3px solid #FF6347;
+            padding: 10px;
         }
         #help {
-          font-family: 'Lora', serif;
+            font-family: 'Lora', serif;
         }
+        .overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background: white url('ajax-loader.gif') no-repeat 50% 50%;
+            position: absolute;
+            opacity: 0.5;
+            /*add this*/
+            
+            top: 0px;
+            left: 0px;
+            z-index: 99;
+        }
+    </style>
+</head>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">
+    stLight.options({
+        publisher: "e688c392-bcd4-4559-a1c1-ef6d870c2593",
+        doNotHash: false,
+        doNotCopy: false,
+        hashAddressBar: true
+    });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+    var TILE_SIZE = 256;
 
-		.overlay {
-			width  : 100%;
-			height : 100%;
-			position: absolute;
-			top: 0px; 
-			left: 0px; 
-			background: white url('ajax-loader.gif') no-repeat 50% 50%;
-			position: absolute;
-			opacity: 0.5;/*add this*/
-			top: 0px; 
-			left: 0px; 
-			z-index: 99;
-		}
-        </style>
-      </head>
-      <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-      <script type="text/javascript">stLight.options({publisher: "e688c392-bcd4-4559-a1c1-ef6d870c2593", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-      <script type="text/javascript">
-      var TILE_SIZE = 256;
-
-      //Mercator --BEGIN--
-      function bound(value, opt_min, opt_max) {
+    //Mercator --BEGIN--
+    function bound(value, opt_min, opt_max) {
         if (opt_min !== null) value = Math.max(value, opt_min);
         if (opt_max !== null) value = Math.min(value, opt_max);
         return value;
-      }
+    }
 
-      function degreesToRadians(deg) {
+    function degreesToRadians(deg) {
         return deg * (Math.PI / 180);
-      }
+    }
 
-      function radiansToDegrees(rad) {
+    function radiansToDegrees(rad) {
         return rad / (Math.PI / 180);
-      }
+    }
 
-      function MercatorProjection() {
+    function MercatorProjection() {
         this.pixelOrigin_ = new google.maps.Point(TILE_SIZE / 2,
-          TILE_SIZE / 2);
+            TILE_SIZE / 2);
         this.pixelsPerLonDegree_ = TILE_SIZE / 360;
         this.pixelsPerLonRadian_ = TILE_SIZE / (2 * Math.PI);
-      }
+    }
 
-      MercatorProjection.prototype.fromLatLngToPoint = function (latLng,
+    MercatorProjection.prototype.fromLatLngToPoint = function(latLng,
         opt_point) {
         var me = this;
         var point = opt_point || new google.maps.Point(0, 0);
@@ -146,27 +162,28 @@
 
         point.x = origin.x + latLng.lng() * me.pixelsPerLonDegree_;
 
-          // NOTE(appleton): Truncating to 0.9999 effectively limits latitude to
-          // 89.189.  This is about a third of a tile past the edge of the world
-          // tile.
-          var siny = bound(Math.sin(degreesToRadians(latLng.lat())), - 0.9999,
+        // NOTE(appleton): Truncating to 0.9999 effectively limits latitude to
+        // 89.189.  This is about a third of a tile past the edge of the world
+        // tile.
+        var siny = bound(Math.sin(degreesToRadians(latLng.lat())), -0.9999,
             0.9999);
-          point.y = origin.y + 0.5 * Math.log((1 + siny) / (1 - siny)) * -me.pixelsPerLonRadian_;
-          return point;
-        };
+        point.y = origin.y + 0.5 * Math.log((1 + siny) / (1 - siny)) * -me.pixelsPerLonRadian_;
+        return point;
+    };
 
-        MercatorProjection.prototype.fromPointToLatLng = function (point) {
-          var me = this;
-          var origin = me.pixelOrigin_;
-          var lng = (point.x - origin.x) / me.pixelsPerLonDegree_;
-          var latRadians = (point.y - origin.y) / -me.pixelsPerLonRadian_;
-          var lat = radiansToDegrees(2 * Math.atan(Math.exp(latRadians)) - Math.PI / 2);
-          return new google.maps.LatLng(lat, lng);
-        };
-      //Mercator --END--
+    MercatorProjection.prototype.fromPointToLatLng = function(point) {
+        var me = this;
+        var origin = me.pixelOrigin_;
+        var lng = (point.x - origin.x) / me.pixelsPerLonDegree_;
+        var latRadians = (point.y - origin.y) / -me.pixelsPerLonRadian_;
+        var lat = radiansToDegrees(2 * Math.atan(Math.exp(latRadians)) - Math.PI / 2);
+        return new google.maps.LatLng(lat, lng);
+    };
+    //Mercator --END--
 
-      var desiredRadiusPerPointInMeters = 2000;
-      function getNewRadius() {
+    var desiredRadiusPerPointInMeters = 2000;
+
+    function getNewRadius() {
         var numTiles = 1 << map.getZoom();
         var center = map.getCenter();
         var moved = google.maps.geometry.spherical.computeOffset(center, 10000, 90); /*1000 meters to the right*/
@@ -174,235 +191,255 @@
         var initCoord = projection.fromLatLngToPoint(center);
         var endCoord = projection.fromLatLngToPoint(moved);
         var initPoint = new google.maps.Point(
-          initCoord.x * numTiles,
-          initCoord.y * numTiles);
+            initCoord.x * numTiles,
+            initCoord.y * numTiles);
         var endPoint = new google.maps.Point(
-          endCoord.x * numTiles,
-          endCoord.y * numTiles);
-        var pixelsPerMeter = (Math.abs(initPoint.x-endPoint.x))/10000.0;
-        var totalPixelSize = Math.floor(desiredRadiusPerPointInMeters*pixelsPerMeter);
+            endCoord.x * numTiles,
+            endCoord.y * numTiles);
+        var pixelsPerMeter = (Math.abs(initPoint.x - endPoint.x)) / 10000.0;
+        var totalPixelSize = Math.floor(desiredRadiusPerPointInMeters * pixelsPerMeter);
         //console.log(totalPixelSize);
         return totalPixelSize;
 
-      }
+    }
 
-      var map, heatMap, neaHeatMap;
-	  var myPlace, bounds;
-      function initMap() {
+    var map, heatMap, neaHeatMap;
+    var myPlace, bounds;
+
+    function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 1.3535514, lng: 103.8203601},
-		  scrollwheel: false,
-          zoom: 12,
-          streetViewControl: false
+            center: {
+                lat: 1.3535514,
+                lng: 103.8203601
+            },
+            scrollwheel: false,
+            zoom: 12,
+            streetViewControl: false
         });
-		
-		myPlace = new google.maps.LatLng(1.3535514, 103.8203601);
-		bounds = new google.maps.LatLngBounds();
-		bounds.extend(myPlace);
-		
-		//map.fitBounds(bounds);
-		
+
+        myPlace = new google.maps.LatLng(1.3535514, 103.8203601);
+        bounds = new google.maps.LatLngBounds();
+        bounds.extend(myPlace);
+
+        //map.fitBounds(bounds);
+
         heatMap = new google.maps.visualization.HeatmapLayer({
-          maxIntensity: 300,
-          radius: getNewRadius()
+            maxIntensity: 300,
+            radius: getNewRadius()
         });
         heatMap.setMap(map);
 
         neaHeatMap = new google.maps.visualization.HeatmapLayer({
-          maxIntensity: 300,
-          radius: getNewRadius()
+            maxIntensity: 300,
+            radius: getNewRadius()
         });
         neaHeatMap.setMap(map);
-		
-		setGradient();
-		
-        google.maps.event.addListener(map, 'zoom_changed', function () {
-          heatMap.setOptions({radius:getNewRadius()});
-        });
-		
-        getPoints();
-      }
 
-      function getPoints() {
+        setGradient();
+
+        google.maps.event.addListener(map, 'zoom_changed', function() {
+            heatMap.setOptions({
+                radius: getNewRadius()
+            });
+        });
+
+        getPoints();
+    }
+
+    function getPoints() {
         //+ "?prefix=processPoints" + "&callback=?"
         var dataProvider = "https://script.google.com/macros/s/AKfycbzCOfcSRPOHmHltFv_jPKw0tq3q8TigA7FbklPvrxm9i-YlMyxX/exec";
 
-        var ua = navigator.userAgent.toLowerCase(); 
-          if (ua.indexOf('safari') != -1) { 
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.indexOf('safari') != -1) {
             if (ua.indexOf('chrome') > -1) {
-              // Chrome
-              // Don't need to do anything, yay!
+                // Chrome
+                // Don't need to do anything, yay!
             } else {
-              // Fucking Safari
-              dataProvider = "https://crossorigin.me/" + dataProvider;
+                // Fucking Safari
+                dataProvider = "https://crossorigin.me/" + dataProvider;
             }
-          }
-          
-          $.ajax({
+        }
+
+        $.ajax({
             url: dataProvider,
             method: "GET",
             success: processPoints
-          });
-      }
-      
-      function processPoints(data) {
+        });
+    }
+
+    function processPoints(data) {
         var points = new Array();
-		var neaPoints = new Array();
+        var neaPoints = new Array();
         var sampleData = data.readings;
-      
+
         console.log("sampleData.length is " + sampleData.length);
 
         for (var i = 0; i < sampleData.length; i++) {
-          var locationData = sampleData[i];
-          console.log("locationData is " + locationData["value"]);
+            var locationData = sampleData[i];
+            console.log("locationData is " + locationData["value"]);
 
-          var point = {};
-          point.location = new google.maps.LatLng(locationData["lat"],locationData["long"]);
-          point.weight = locationData["value"];
+            var point = {};
+            point.location = new google.maps.LatLng(locationData["lat"], locationData["long"]);
+            point.weight = locationData["value"];
 
-          console.log("pointData is " + JSON.stringify(point));
+            console.log("pointData is " + JSON.stringify(point));
 
-		  if (locationData["location"].substr(0,3) == "NEA")
-		    neaPoints.push(point);
-		  else
-            points.push(point);
+            if (locationData["location"].substr(0, 3) == "NEA")
+                neaPoints.push(point);
+            else
+                points.push(point);
 
-          var contentString = '<div id="content">'+
-            '<h2 id="markerHeader" style="font-family: \'Arial\', serif;">' + locationData["location"] + '</h2>'+
-            '<div id="markerContent">'+
-            '<p>' + locationData["value"] + ' &#181;g/m<sup>3</sup></p>'+
-            '</div>'+
-            '</div>';
+            var contentString = '<div id="content">' +
+                '<h2 id="markerHeader" style="font-family: \'Arial\', serif;">' + locationData["location"] + '</h2>' +
+                '<div id="markerContent">' +
+                '<p>' + locationData["value"] + ' &#181;g/m<sup>3</sup></p>' +
+                '</div>' +
+                '</div>';
 
-	      bounds.extend(point.location);
-	  
-          bindInfoWindow(map, point, contentString);
+            bounds.extend(point.location);
+
+            bindInfoWindow(map, point, contentString);
         }
-    
-        heatMap.setData(points);
-		neaHeatMap.setData(neaPoints);
-  		map.fitBounds(bounds);
-  		  
-  		$(".overlay").hide();
-      }
 
-      function bindInfoWindow(map, point, html) {
-		  var newInfoWindow =  new google.maps.InfoWindow();
-          
-		  var marker = new google.maps.Marker({
+        heatMap.setData(points);
+        neaHeatMap.setData(neaPoints);
+        map.fitBounds(bounds);
+
+        $(".overlay").hide();
+    }
+
+    function bindInfoWindow(map, point, html) {
+        var newInfoWindow = new google.maps.InfoWindow();
+
+        var marker = new google.maps.Marker({
             position: point.location,
             map: map,
             title: '',
-			infoWindow: newInfoWindow,
-			eventType: -1
-          });
+            infoWindow: newInfoWindow,
+            eventType: -1
+        });
 
-		  newInfoWindow.setContent(html);
-		  
-		  marker.addListener('click', function() { openInfoWindow(marker, 0); });
-		  marker.addListener('mouseover', function() { openInfoWindow(marker, 1); });
-		  marker.addListener('mouseout', function() { closeInfoWindow(marker, false); });
-		  newInfoWindow.addListener('closeclick', function() { closeInfoWindow(marker, true); });
-      }
-	  
-	  function openInfoWindow(marker,state) {
-		// make sure click state is preserved
-		if (marker.eventType != 0)
-			marker.eventType = state;
-		
-		marker.infoWindow.open(marker.map, marker); 
-	  }
-	  
-	  function closeInfoWindow(marker, resetState) {
-		if (resetState == true) {
-			marker.eventType = -1;
-		} else {
-			if (marker.eventType == 1)
-				marker.infoWindow.close();			
-		}
-	  }
-	  
-	  function setGradient() {
-		  gradient = [
-			'rgba(0, 255, 255, 0)',
-			'rgba(0, 255, 255, 1)',
-			'rgba(0, 191, 255, 1)',
-			'rgba(0, 127, 255, 1)',
-			'rgba(0, 63, 255, 1)',
-			'rgba(0, 0, 255, 1)',
-			'rgba(0, 0, 223, 1)',
-			'rgba(0, 0, 191, 1)',
-			'rgba(0, 0, 159, 1)',
-			'rgba(0, 0, 127, 1)',
-			'rgba(63, 0, 91, 1)',
-			'rgba(127, 0, 63, 1)',
-			'rgba(191, 0, 31, 1)',
-			'rgba(255, 0, 0, 1)'
-		  ]
-		  neaHeatMap.set('gradient', gradient);
-	    }
-      </script>
-      <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDwEEKk1ELCtXoHJBaERixXf8e_PuoYOw&callback=initMap&libraries=visualization,geometry">
-      </script>
-      <body>
-        <p></p>
-        <div id="advert" align="center">
-          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-          <!-- NeoCities Responsive -->
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-2975646198715997"
-               data-ad-slot="2511908084"
-               data-ad-format="auto"></ins>
-          <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        </div>
-        <h1 align="center">Community Online Haze Index</h1>
-		<div id='holder'><div class='overlay'></div><div id='map'></div></div>
-        <p></p>
-        <div id="sharethis" align="center">
+        newInfoWindow.setContent(html);
+
+        marker.addListener('click', function() {
+            openInfoWindow(marker, 0);
+        });
+        marker.addListener('mouseover', function() {
+            openInfoWindow(marker, 1);
+        });
+        marker.addListener('mouseout', function() {
+            closeInfoWindow(marker, false);
+        });
+        newInfoWindow.addListener('closeclick', function() {
+            closeInfoWindow(marker, true);
+        });
+    }
+
+    function openInfoWindow(marker, state) {
+        // make sure click state is preserved
+        if (marker.eventType != 0)
+            marker.eventType = state;
+
+        marker.infoWindow.open(marker.map, marker);
+    }
+
+    function closeInfoWindow(marker, resetState) {
+        if (resetState == true) {
+            marker.eventType = -1;
+        } else {
+            if (marker.eventType == 1)
+                marker.infoWindow.close();
+        }
+    }
+
+    function setGradient() {
+        gradient = [
+            'rgba(0, 255, 255, 0)',
+            'rgba(0, 255, 255, 1)',
+            'rgba(0, 191, 255, 1)',
+            'rgba(0, 127, 255, 1)',
+            'rgba(0, 63, 255, 1)',
+            'rgba(0, 0, 255, 1)',
+            'rgba(0, 0, 223, 1)',
+            'rgba(0, 0, 191, 1)',
+            'rgba(0, 0, 159, 1)',
+            'rgba(0, 0, 127, 1)',
+            'rgba(63, 0, 91, 1)',
+            'rgba(127, 0, 63, 1)',
+            'rgba(191, 0, 31, 1)',
+            'rgba(255, 0, 0, 1)'
+        ]
+        neaHeatMap.set('gradient', gradient);
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDwEEKk1ELCtXoHJBaERixXf8e_PuoYOw&callback=initMap&libraries=visualization,geometry">
+</script>
+
+<body>
+    <p></p>
+    <div id="advert" align="center">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- NeoCities Responsive -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2975646198715997" data-ad-slot="2511908084" data-ad-format="auto"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <h1 align="center">Community Online Haze Index</h1>
+    <div id='holder'>
+        <div class='overlay'></div>
+        <div id='map'></div>
+    </div>
+    <p></p>
+    <div id="sharethis" align="center">
         <h2 align="center">Like this site? Spread the word!</h2>
         <span class='st_whatsapp_vcount' displayText='WhatsApp'></span>
         <span class='st_facebook_vcount' displayText='Facebook'></span>
         <span class='st_twitter_vcount' displayText='Tweet'></span>
         <span class='st_reddit_vcount' displayText='Reddit'></span>
         <span class='st_tumblr_vcount' displayText='Tumblr'></span>
+    </div>
+    <p>
+        <div id='todo'>
+            <h2 style="padding-left: 1em">TODO List (in no particular order)</h2>
+            <ul>
+                <li>Migrate to LeafletJS</li>
+                <li>Add legend</li>
+                <li>Seperate NEA and "spot" heatmaps</li>
+                <li>Add FAQ page</li>
+                <li>Make site responsive</li>
+                <li><strike>Add NEA station readings</strike>
+                </li>
+                <li><strike>Add MetOne source</strike>
+                </li>
+            </ul>
         </div>
         <p>
-          <div id='todo'>
-            <h2 style="padding-left: 1em" >TODO List (in no particular order)</h3>
-              <ul>
-				<li>Migrate to LeafletJS</li>
-				<li>Add legend</li>
-				<li>Seperate NEA and "spot" heatmaps</li>
-				<li>Add FAQ page</li>
-				<li>Make site responsive</li>
-				<li><strike>Add NEA station readings</strike></li>
-                <li><strike>Add MetOne source</strike></li>
-              </ul>
-            </div>
-            <p>
-              <div id='contrib'>
-                <h2 align="center">Special Thanks & Contributors</h3>
-                  <div align="center">
-					<br><a href="http://www.apaq-group.com/#!haze-monitoring/c1r02" target="_blank">Asia Pacific Air Quality Group</a>
+            <div id='contrib'>
+                <h2 align="center">Special Thanks & Contributors</h2>
+                <div align="center">
+                    <br><a href="http://www.apaq-group.com/#!haze-monitoring/c1r02" target="_blank">Asia Pacific Air Quality Group</a>
                     <br>boink!
                     <br><a href="http://fuzzyview.neocities.org/" target="_blank">chuanz</a>
                     <br>Working
-                  </div>
-                  <br><div id="help" align="center">Wanna help out? Drop an email to <br><b>asphodeli &#x1F4E7;yahoo.com.sg</b></div>
                 </div>
-                <p></p>
-                <div id='disclaimer'>
-                <h2 align="center">Disclaimer</h3>
-                  <div align="center">
-                    THIS WEBSITE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS WEBSITE.
-                    <p>The site administrator can be reached at <br><b>asphodeli &#x1F4E7;yahoo.com.sg</b></p>
-                    </div>
-                  </div>
+                <br>
+                <div id="help" align="center">Wanna help out? Drop an email to
+                    <br><b>asphodeli &#x1F4E7;yahoo.com.sg</b>
                 </div>
-                <p>&nbsp;</p>
-              </body>
-              </html>
+            </div>
+            <p></p>
+            <div id='disclaimer'>
+                <h2 align="center">Disclaimer</h2>
+                <div align="center">
+                    THIS WEBSITE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS WEBSITE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS WEBSITE.
+                    <p>The site administrator can be reached at
+                        <br><b>asphodeli &#x1F4E7;yahoo.com.sg</b>
+                    </p>
+                </div>
+            </div>
+            <p>&nbsp;</p>
+</body>
+
+</html>
