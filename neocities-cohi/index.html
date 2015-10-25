@@ -13,12 +13,30 @@
     <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:900' rel='stylesheet' type='text/css'>
     <style type="text/css">
-        html, body { height: 100%; margin: 0; padding: 0; }
-        h1, h2, h3 { margin: auto; font-family: 'Shadows Into Light', cursive; }
+        html { 
+		  //max-width: 90%;
+		  //width: 95%;
+		  //margin: 0 0;
+		  //height: auto;
+		  padding: 0px !important;
+		  display: table;
+		  margin: 0 auto;
+		}
+		body {
+		  display: table-cell;
+		  vertical-align: middle;
+		}
+        h1, h2, h3 {
+		  margin: auto;
+		  font-family: 'Shadows Into Light', cursive;
+		}
 		#holder {
-		  min-width: 720px;
-          min-height: 680px; 
-		  width: 60%;
+		  //min-width: 720px;
+          min-height: 680px;
+		  width: 90%;
+		  
+		  padding-top:50%;
+		  //height:0;
 		  
 		  margin: auto;
 		  position: relative;
@@ -28,7 +46,8 @@
         }
 		#map {
 		  width  : 100%;
-		  height : 100%;
+		  height: 100%;
+		  overflow: hidden;
 		  position: absolute;
 		  top: 0px; 
 		  left: 0px; 
@@ -37,20 +56,28 @@
 		  
 		  opacity: 1;
 		}
-        #contrib {
-          font-family: 'Merriweather', serif;
+        #sharethis {
           margin: auto;
-          width: 60%;
-          border: 3px solid #6495ED;
+          width: 90%;
+		  min-height: 100px;
+          border: 3px solid #008B8B;
           padding: 10px;
           
         }
         #todo {
           font-family: 'Lora', serif;
+		  width: 90%;
           margin: auto;
-          width: 60%;
           border: 3px solid #FFD700;
           padding: 10px;
+        }
+        #contrib {
+          font-family: 'Merriweather', serif;
+          margin: auto;
+          width: 90%;
+          border: 3px solid #6495ED;
+          padding: 10px;
+          
         }
         #advert {
           margin: auto;
@@ -59,7 +86,7 @@
         #disclaimer {
           font-family: 'Lora', serif;
           margin: auto;
-          width: 60%;
+		  width: 90%;
           border: 3px solid #FF6347;
           padding: 10px;
           
@@ -67,13 +94,7 @@
         #help {
           font-family: 'Lora', serif;
         }
-        #sharethis {
-          margin: auto;
-          width: 60%;
-          border: 3px solid #008B8B;
-          padding: 10px;
-          
-        }
+
 		.overlay {
 			width  : 100%;
 			height : 100%;
@@ -165,7 +186,7 @@
 
       }
 
-      var map, heatMap;
+      var map, heatMap, neaHeatMap;
 	  var myPlace, bounds;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -187,6 +208,14 @@
         });
         heatMap.setMap(map);
 
+        neaHeatMap = new google.maps.visualization.HeatmapLayer({
+          maxIntensity: 300,
+          radius: getNewRadius()
+        });
+        neaHeatMap.setMap(map);
+		
+		setGradient();
+		
         google.maps.event.addListener(map, 'zoom_changed', function () {
           heatMap.setOptions({radius:getNewRadius()});
         });
@@ -218,6 +247,7 @@
       
       function processPoints(data) {
         var points = new Array();
+		var neaPoints = new Array();
         var sampleData = data.readings;
       
         console.log("sampleData.length is " + sampleData.length);
@@ -232,7 +262,10 @@
 
           console.log("pointData is " + JSON.stringify(point));
 
-          points.push(point);
+		  if (locationData["location"].substr(0,3) == "NEA")
+		    neaPoints.push(point);
+		  else
+            points.push(point);
 
           var contentString = '<div id="content">'+
             '<h2 id="markerHeader" style="font-family: \'Arial\', serif;">' + locationData["location"] + '</h2>'+
@@ -247,9 +280,10 @@
         }
     
         heatMap.setData(points);
-  		  map.fitBounds(bounds);
+		neaHeatMap.setData(neaPoints);
+  		map.fitBounds(bounds);
   		  
-  		  $(".overlay").hide();
+  		$(".overlay").hide();
       }
 
       function bindInfoWindow(map, point, html) {
@@ -287,6 +321,26 @@
 				marker.infoWindow.close();			
 		}
 	  }
+	  
+	  function setGradient() {
+		  gradient = [
+			'rgba(0, 255, 255, 0)',
+			'rgba(0, 255, 255, 1)',
+			'rgba(0, 191, 255, 1)',
+			'rgba(0, 127, 255, 1)',
+			'rgba(0, 63, 255, 1)',
+			'rgba(0, 0, 255, 1)',
+			'rgba(0, 0, 223, 1)',
+			'rgba(0, 0, 191, 1)',
+			'rgba(0, 0, 159, 1)',
+			'rgba(0, 0, 127, 1)',
+			'rgba(63, 0, 91, 1)',
+			'rgba(127, 0, 63, 1)',
+			'rgba(191, 0, 31, 1)',
+			'rgba(255, 0, 0, 1)'
+		  ]
+		  neaHeatMap.set('gradient', gradient);
+	    }
       </script>
       <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDwEEKk1ELCtXoHJBaERixXf8e_PuoYOw&callback=initMap&libraries=visualization,geometry">
