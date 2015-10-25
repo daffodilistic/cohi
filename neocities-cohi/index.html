@@ -170,6 +170,7 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 1.3535514, lng: 103.8203601},
+		  scrollwheel: false,
           zoom: 12,
           streetViewControl: false
         });
@@ -288,7 +289,7 @@
 	  }
       </script>
       <script async defer
-      src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBDwEEKk1ELCtXoHJBaERixXf8e_PuoYOw&callback=initMap&libraries=visualization,geometry">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDwEEKk1ELCtXoHJBaERixXf8e_PuoYOw&callback=initMap&libraries=visualization,geometry">
       </script>
       <body>
         <p></p>
