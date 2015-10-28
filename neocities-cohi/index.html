@@ -68,6 +68,13 @@
             border: 3px solid #FFD700;
             padding: 10px;
         }
+        #faq {
+            font-family: 'Lora', serif;
+            margin: auto;
+            width: 90%;
+            border: 3px solid #9370DB;
+            padding: 10px;
+        }
         #contrib {
             font-family: 'Merriweather', serif;
             margin: auto;
@@ -401,18 +408,19 @@
         <span class='st_tumblr_vcount' displayText='Tumblr'></span>
     </div>
     <p>
-        <div id='todo'>
-            <h2 style="padding-left: 1em">TODO List (in no particular order)</h2>
+        <div id='faq'>
+            <h2 align="center">Frequently Asked Questions</h2>
             <ul>
-                <li>Migrate to LeafletJS</li>
-                <li>Add legend</li>
-                <li>Seperate NEA and "spot" heatmaps</li>
-                <li>Add FAQ page</li>
-                <li>Make site responsive</li>
-                <li><strike>Add NEA station readings</strike>
-                </li>
-                <li><strike>Add MetOne source</strike>
-                </li>
+                <li style="font-family: 'Merriweather', serif;">What is this page for?</li><p>
+                This is a webpage which aggregates data from the NEA and our community of volunteers who have agreed to put up their PM2.5 meter on-the-spot readings online for use.</p>
+                <li style="font-family: 'Merriweather', serif;">Why is there a need for "spot" PM2.5 readings?</li>
+                <p>
+                I found that a 3-hourly (and even 1-hourly) reading provided by the NEA sometimes trails subjective visibility levels of air quality, and sometimes a snap decision has to be made as to decide if it's a good idea to go running, or stay home and avoid exposure to PM2.5 particles.</p><p>Thus, I decided to create a webpage which aggregates on-the-spot readings from volunteers with their PM2.5 meters in order for me (and perhaps many others) to make a quick decision as to what activies to proceed or avoid, and also to compare NEA's 1-hour PM2.5 values, versus the "snapshot" of the current PM2.5 readings from volunteers.</p>
+                <li style="font-family: 'Merriweather', serif;">How accurate are the readings?</li><p>
+                Most of the meters are non-professional in nature, and thus cannot be relied on accurately in small numbers. Additionally, as the meters are often placed in areas with human activity (such as HDB corridors, HDB lift landings, etc.), they are subject to temporal spikes in dust particles detected, due to disturbance of the air around the meter.
+                </p><p>However, if we are careful in sampling data, it can be a more "accurate" representation of PM2.5 particles in the air, as they are not placed in remote places where human activity is almost never going to happen there. As more meters come online, the meters can be calibrated to a certain degree of accuracy (i.e. a larger sample size has a lower margin of error), and serves as a "faster" alternative to the NEA's values.</p>
+                <li style="font-family: 'Merriweather', serif;">How can I contribute?</li><p>
+                You can contribute by building your own PM2.5 meter or buying one, and hooking it up to an online cloud storage provider like GroveStream, Lewei50, Particle (formerly Spark), ThingSpeak, Xively, etc.. Drop me an e-mail with a link to your meter's data page and I'll take care of the rest. &#x1f600;</p>
             </ul>
         </div>
         <p>
@@ -429,17 +437,37 @@
                     <br><b>asphodeli &#x1F4E7;yahoo.com.sg</b>
                 </div>
             </div>
-            <p></p>
-            <div id='disclaimer'>
-                <h2 align="center">Disclaimer</h2>
-                <div align="center">
-                    THIS WEBSITE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS WEBSITE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS WEBSITE.
-                    <p>The site administrator can be reached at
-                        <br><b>asphodeli &#x1F4E7;yahoo.com.sg</b>
-                    </p>
-                </div>
+        <p>
+        <div id='todo'>
+            <h2 align="center">TODO List (in no particular order)</h2>
+            <ul>
+                <li>Migrate to LeafletJS</li>
+                <li>Add legend</li>
+                <li>Make site responsive</li>
+                <li>Add data table</li>
+                <li>Add different map modes</li>
+                <li><strike>Seperate NEA and "spot" heatmaps</strike></li>
+                <li><strike>Add FAQ page</strike></li>
+                <li><strike>Add NEA station readings</strike></li>
+                <li><strike>Add MetOne source</strike></li>
+            </ul>
+        </div>
+        <p>
+        <div id='disclaimer'>
+            <h2 align="center">Disclaimer</h2>
+            <div align="center">
+                Parts of data sourced from National Environmental Agency, Singapore
+                <p>
+                The datasets provided by the Singapore Government and its Statutory Boards via Data.gov.sg are governed by the Terms of Use available at www.data.gov.sg/common/terms.aspx. To the fullest extent permitted by law, the Singapore Government and its Statutory Boards are not liable for any damage or loss of any kind caused directly or indirectly by the use of the datasets or any derived analyses or applications.
+                Any analysis or transformation of data made by this site and shall not be attributed to the Singapore Government or its Statutory Boards.
+                <p>
+                THIS WEBSITE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS WEBSITE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS WEBSITE.
+                <p>The site administrator can be reached at
+                    <br><b>asphodeli &#x1F4E7;yahoo.com.sg</b>
+                </p>
             </div>
-            <p>&nbsp;</p>
+        </div>
+        <p>&nbsp;</p>
 </body>
 
 </html>
